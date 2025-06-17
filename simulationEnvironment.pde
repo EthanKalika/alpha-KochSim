@@ -13,9 +13,22 @@ void setup(){
 }
 
 void simulate() {
-  noSmooth();
-  stroke(0);
-  point(120, 80);
+  rightRegion r1 = new rightRegion(50, 400, 400, 60, 10, 0);
+  r1.drawFancyRightRegion();
+  r1.rotateRightRegion(10);
+  r1.drawFancyRightRegion();
+  r1.rotateRightRegion(10);
+  r1.drawFancyRightRegion();
+  r1.rotateRightRegion(10);
+  r1.drawFancyRightRegion();
+  r1.rotateRightRegion(10);
+  r1.drawFancyRightRegion();
+  r1.rotateRightRegion(10);
+  r1.drawFancyRightRegion();
+  r1.rotateRightRegion(10);
+  r1.drawFancyRightRegion();
+  r1.rotateRightRegion(10);
+  r1.drawFancyRightRegion();
 }
 
 /* Example Simulations:
@@ -36,19 +49,19 @@ void simulate() {
    l1.drawFancyLeftRegion();
    
 5. rightRegion r1 = new rightRegion(50, 400, 400, 60, 10, 0);
-  r1.drawFancyRightRegion();
-  r1.rotateRightRegion(10);
-  r1.drawFancyRightRegion();
-  r1.rotateRightRegion(10);
-  r1.drawFancyRightRegion();
-  r1.rotateRightRegion(10);
-  r1.drawFancyRightRegion();
-  r1.rotateRightRegion(10);
-  r1.drawFancyRightRegion();
-  r1.rotateRightRegion(10);
-  r1.drawFancyRightRegion();
-  r1.rotateRightRegion(10);
-  r1.drawFancyRightRegion();
-  r1.rotateRightRegion(10);
-  r1.drawFancyRightRegion();
+   r1.drawFancyRightRegion();
+   r1.rotateRightRegion(10);
+   r1.drawFancyRightRegion();
+   r1.rotateRightRegion(10);
+   r1.drawFancyRightRegion();
+   r1.rotateRightRegion(10);
+   r1.drawFancyRightRegion();
+   r1.rotateRightRegion(10);
+   r1.drawFancyRightRegion();
+   r1.rotateRightRegion(10);
+   r1.drawFancyRightRegion();
+   r1.rotateRightRegion(10);
+   r1.drawFancyRightRegion();
+   r1.rotateRightRegion(10);
+   r1.drawFancyRightRegion();
 */

@@ -79,8 +79,8 @@ class leftRegion {
   }
   
   /*
-  Input: deg - A float representing the number of degrees by which to rotate the right region
-  Action: Rotates the right region by the undicated number of degrees
+  Input: deg - A float representing the number of degrees by which to rotate the left region
+  Action: Rotates the left region by the undicated number of degrees
   */
   void rotateLeftRegion(float deg) {
     PVector displacementVec = new PVector(x, y);

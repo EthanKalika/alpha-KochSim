@@ -80,12 +80,15 @@ class rightRegion {
   }
   
   /*
-  Input: deg - A float representing the number of degrees by which to rotate the right region
-  Action: Rotates the right region by the undicated number of degrees
+  Inputs:
+    givenX - The x-coordinate of the center
+    givenY - The y-coordinate of the center
+    deg - The number of degrees by which to rotate the right region
+  Action: Rotates the right region clockwise by the indicated number of degrees about the indicated center
   */
-  void rotateRightRegion(float deg) {
+  void rotateRightRegion(float givenX, float givenY, float deg) {
     orient += deg;
-    PVector displacementVec = new PVector(x, y);
+    PVector displacementVec = new PVector(givenX, givenY);
     p1.sub(displacementVec);
     p2.sub(displacementVec);
     p3.sub(displacementVec);
@@ -98,5 +101,14 @@ class rightRegion {
     p2.add(displacementVec);
     p3.add(displacementVec);
     p4.add(displacementVec);
+  }
+  
+  /*
+  Input:
+    deg - A float representing the number of degrees by which to rotate the right region
+  Action: Rotates the right region clockwise by the indicated number of degrees about p1
+  */
+  void rotateRightRegion(float deg) {
+    rotateRightRegion(x, y, deg);
   }
 }

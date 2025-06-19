@@ -5,50 +5,67 @@ Date: May 22, 2025
 
 import java.util.HashMap;
 
-/*
-Input:
-  lengthSides - A float representing the length of the curve
-  alpha - The alpha parameter of the curve (given in degrees)
-  level - The number of iterations of the alpha koch curve
-  sideLengths - A hashmap used to store the parameters at various iterations of the function (this is used for memoization)
-Action: Helper function to draw an alpha-Koch curve
-*/
-private void alphaSnowflakeHelper(float lengthSide, float alpha, int levels, HashMap<Integer, Float> sideLengths) {
-  if (levels == 0) {
-    t.forward(lengthSide);
-    return;
-  } else if (sideLengths.containsKey(levels)) {
-    lengthSide = sideLengths.get(levels);
-    alphaSnowflakeHelper(lengthSide, alpha, levels-1, sideLengths);
-    t.ccw(alpha);
-    alphaSnowflakeHelper(lengthSide, alpha, levels-1, sideLengths);
-    t.cw(2 * alpha);
-    alphaSnowflakeHelper(lengthSide, alpha, levels-1, sideLengths);
-    t.ccw(alpha);
-    alphaSnowflakeHelper(lengthSide, alpha, levels-1, sideLengths);
-  } else {
-    lengthSide /= 2.0 * (1 + cos(radians(alpha)));
-    sideLengths.put(levels, lengthSide);
-    alphaSnowflakeHelper(lengthSide, alpha, levels-1, sideLengths);
-    t.ccw(alpha);
-    alphaSnowflakeHelper(lengthSide, alpha, levels-1, sideLengths);
-    t.cw(2 * alpha);
-    alphaSnowflakeHelper(lengthSide, alpha, levels-1, sideLengths);
-    t.ccw(alpha);
-    alphaSnowflakeHelper(lengthSide, alpha, levels-1, sideLengths);
+class kochCurve {
+  float widthOfCurve, elevation;
+  int alpha, level;
+  turtleDrawer t;
+  polyArc alphaKoch;
+  
+  kochCurve(float lengthSide, float elev, int givenAlpha, int givenLevel, turtleDrawer turtle) {
+    widthOfCurve = lengthSide;
+    elevation = elev;
+    alpha = givenAlpha;
+    level = givenLevel;
+    t = turtle;
+    alphaKoch = new polyArc(calcPoints(lengthSide, elev, givenAlpha, givenLevel, turtle));
   }
-}
-
-/*
-Inputs:
-  lengthSides - A float representing the length of the curve
-  alpha - The alpha parameter of the curve (given in degrees)
-  level - The number of iterations of the alpha koch curve
-  t - The turtle object used to draw the curve
-Action: Draws the alpha-Koch curve with the given parameters
-*/
-void alphaSnowflake(float lengthSide, float alpha, int levels, Turtle t) {
-  HashMap<Integer, Float> sideLengths = new HashMap<Integer, Float>();
-  t.setPos(50, 725);
-  alphaSnowflakeHelper(lengthSide, alpha, levels, sideLengths);
+  
+  ArrayList<PVector> calcPoints(float lengthSide, float elev, int givenAlpha, int givenLevel, turtleDrawer turtle) {
+    ArrayList<PVector> vertices = new ArrayList<PVector>();
+    turtle.setPos(50, elev);
+    vertices.add(turtle.getPos());
+    HashMap<Integer, Float> memo = new HashMap<Integer, Float>();
+    recursiveCalcPoints(lengthSide, givenAlpha, givenLevel, turtle, vertices, memo);
+    return vertices;
+  }
+  
+  /*
+  Input:
+    lengthSides - A float representing the length of the curve
+    alpha - The alpha parameter of the curve (given in degrees)
+    level - The number of iterations of the alpha koch curve
+    sideLengths - A hashmap used to store the parameters at various iterations of the function (this is used for memoization)
+  Action: Helper function to draw an alpha-Koch curve
+  */
+  private void recursiveCalcPoints(float lengthSide, int givenAlpha, int levels, turtleDrawer turtle, ArrayList<PVector> vertices, HashMap<Integer, Float> memo) {
+    if (levels == 0) {
+      t.forward(lengthSide);
+      vertices.add(t.getPos());
+      return;
+    } else {
+      if (!memo.containsKey(levels)) {
+        memo.put(levels, lengthSide / (2.0 * (1 + cos(radians(givenAlpha)))));
+      }
+      float newLength = memo.get(levels);
+      recursiveCalcPoints(newLength, givenAlpha, levels - 1, turtle, vertices, memo);
+      t.ccw(givenAlpha);
+      recursiveCalcPoints(newLength, givenAlpha, levels - 1, turtle, vertices, memo);
+      t.cw(2 * givenAlpha);
+      recursiveCalcPoints(newLength, givenAlpha, levels - 1, turtle, vertices, memo);
+      t.ccw(givenAlpha);
+      recursiveCalcPoints(newLength, givenAlpha, levels - 1, turtle, vertices, memo);
+    }
+  }
+  
+  void displayArc() {
+    alphaKoch.displayArc();
+  }
+  
+  void rotateLeftSubArc(int end, float deg) {
+    alphaKoch.rotateLeftSubArc(end, deg);
+  }
+  
+  void rotateRightSubArc(int start, float deg) {
+    alphaKoch.rotateRightSubArc(start, deg);
+  }
 }

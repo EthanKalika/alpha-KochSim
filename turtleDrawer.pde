@@ -3,21 +3,29 @@ Author: Ethan Kalika
 Date: May 22, 2025
 */
 
-class Turtle {
-  float x, y, angle;
+class turtleDrawer {
+  boolean isUp;
+  float angle;
+  PVector coord;
 
-  Turtle(float startX, float startY) {
-    x = startX;
-    y = startY;
+  turtleDrawer(float startX, float startY, boolean lifted) {
+    coord = new PVector(startX, startY);
     angle = 0;
+    isUp = lifted;
+  }
+  
+  turtleDrawer(float startX, float startY) {
+    this(startX, startY, true);
   }
 
   void forward(float distance) {
-    float newX = x + cos(radians(angle)) * distance;
-    float newY = y + sin(radians(angle)) * distance;
-    line(x, y, newX, newY);
-    x = newX;
-    y = newY;
+    float newX = coord.x + cos(radians(angle)) * distance;
+    float newY = coord.y + sin(radians(angle)) * distance;
+    if (!isUp) {
+      line(coord.x, coord.y, newX, newY);
+    }
+    coord.x = newX;
+    coord.y = newY;
   }
 
   void ccw(float degrees) {
@@ -29,19 +37,27 @@ class Turtle {
   }
   
   void setPos(float givenX, float givenY) {
-    x = givenX;
-    y = givenY;
+    coord.x = givenX;
+    coord.y = givenY;
   }
   
   void setAngle(float givenAngle) {
     angle = givenAngle;
   }
   
-  float[] getPos() {
-    return new float[] {x, y};
+  PVector getPos() {
+    return new PVector(coord.x, coord.y);
   }
   
   float getAngle() {
     return angle;
+  }
+  
+  void penUp() {
+    isUp = true;
+  }
+  
+  void penDown() {
+    isUp = false;
   }
 }

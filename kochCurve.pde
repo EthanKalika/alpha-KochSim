@@ -6,23 +6,53 @@ Date: May 22, 2025
 import java.util.HashMap;
 
 class kochCurve {
-  float widthOfCurve, elevation;
+  /*
+  widthOfCurve - The width of the curve
+  xPos - The x-coordinate of the position of the leftmost point on the curve
+  yPos - The y-coordinate of the position of the leftmost point on the curve
+  alpha - The alpha parameter of the curve
+  level - The degree of the curve
+  t - The turtle object used to draw the curve
+  alphaKoch - The polygonalArc object used to store the points of the curve
+  */
+  float widthOfCurve, xPos, yPos;
   int alpha, level;
   turtleDrawer t;
   polyArc alphaKoch;
   
-  kochCurve(float lengthSide, float elev, int givenAlpha, int givenLevel, turtleDrawer turtle) {
+  /*
+  Inputs:
+    lengthSide - The desired width of the curve
+    startX - The x-coordinate of the start point of the curve
+    startY - The y-coordinate of the start point of the curve
+    givenAlpha - The desired alpha parameter of the curve
+    givenLevel - The degree of the curve
+    turtle - The object used to help draw the curve
+  Action: Creates an instance of the alpha-Koch curve with the desirec parameters.
+  */
+  kochCurve(float lengthSide, float startX, float startY, int givenAlpha, int givenLevel, turtleDrawer turtle) {
     widthOfCurve = lengthSide;
-    elevation = elev;
+    xPos = startX;
+    yPos = startY;
     alpha = givenAlpha;
     level = givenLevel;
     t = turtle;
-    alphaKoch = new polyArc(calcPoints(lengthSide, elev, givenAlpha, givenLevel, turtle));
+    alphaKoch = new polyArc(calcPoints(lengthSide, startX, startY, givenAlpha, givenLevel, turtle));
   }
   
-  ArrayList<PVector> calcPoints(float lengthSide, float elev, int givenAlpha, int givenLevel, turtleDrawer turtle) {
+  /*
+  Inputs:
+    lengthSide - The desired width of the curve
+    startX - The x-coordinate of the start point of the curve
+    startY - The y-coordinate of the start point of the curve
+    givenAlpha - The desired alpha parameter of the curve
+    givenLevel - The degree of the curve
+    turtle - The object used to help draw the curve
+  Action: The is a private function and is not called by the user. It is only used internally. This function performs the necessary setup to calculate the points on the alpha-Koch curve.
+  */
+  private ArrayList<PVector> calcPoints(float lengthSide, float startX, float startY, int givenAlpha, int givenLevel, turtleDrawer turtle) {
     ArrayList<PVector> vertices = new ArrayList<PVector>();
-    turtle.setPos(50, elev);
+    turtle.setPos(startX, startY);
     vertices.add(turtle.getPos());
     HashMap<Integer, Float> memo = new HashMap<Integer, Float>();
     recursiveCalcPoints(lengthSide, givenAlpha, givenLevel, turtle, vertices, memo);
@@ -30,12 +60,14 @@ class kochCurve {
   }
   
   /*
-  Input:
-    lengthSides - A float representing the length of the curve
-    alpha - The alpha parameter of the curve (given in degrees)
-    level - The number of iterations of the alpha koch curve
-    sideLengths - A hashmap used to store the parameters at various iterations of the function (this is used for memoization)
-  Action: Helper function to draw an alpha-Koch curve
+  Inputs:
+    lengthSide - The desired width of the curve
+    givenAlpha - The desired alpha parameter of the curve
+    givenLevel - The degree of the curve
+    turtle - The object used to help draw the curve
+    vertices - An ArrayList used to store the points of the alpha-Koch curve
+    memo - A HashMap used to store information needed during calculation of the poitns on the curve so that it doesn not need to be recalcualted later.
+  Action: The is a private function and is not called by the user. It is only used internally. This function calculates the points on the alpha-Koch curve and stores them in the "vertices" ArrayList.
   */
   private void recursiveCalcPoints(float lengthSide, int givenAlpha, int levels, turtleDrawer turtle, ArrayList<PVector> vertices, HashMap<Integer, Float> memo) {
     if (levels == 0) {
@@ -57,14 +89,29 @@ class kochCurve {
     }
   }
   
+  /*
+  Action: Displayes the curve
+  */
   void displayArc() {
     alphaKoch.displayArc();
   }
   
+  /*
+  Inputs:
+    end - The point about which the rotation is happening
+    deg - The number of degrees of rotation
+  Action: Rotates all the points to the left of the point indicated by the end are rotated deg degrees clockwise.
+  */
   void rotateLeftSubArc(int end, float deg) {
     alphaKoch.rotateLeftSubArc(end, deg);
   }
   
+  /*
+  Inputs:
+    start - The point about which the rotation is happening
+    deg - The number of degrees of rotation
+  Action: Rotates all the points to the right of the point indicated by the start are rotated deg degrees clockwise.
+  */
   void rotateRightSubArc(int start, float deg) {
     alphaKoch.rotateRightSubArc(start, deg);
   }

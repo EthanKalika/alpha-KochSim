@@ -1,0 +1,249 @@
+/*
+Author: Ethan Kalika
+Date: June 20, 2025
+*/
+
+class lRPair {
+  /*
+  showL - A boolean stating weather to show the left region
+  showR - A boolean stating weather to show the right region
+  col - An array storing 3 values representing the RGB value of the color of the intersection of the left and right region
+  l - The left region associated with the pair
+  r - The right region associated with the pair
+  */
+  boolean showL, showR;
+  int[] col;
+  leftRegion l;
+  rightRegion r;
+  
+  /*
+  Inputs:
+    givenShowL - A boolean stating weather the left region is to be displayed
+    givenShowR - A boolean stating weather the right region is to be shown
+    alpha - The alpha parameter of the inscribed alpha-Koch Curve
+    x - The x-coordinate of the p1 points of the associated left and right regions
+    y - The y-coordinate of the p1 points of the associated left and right regions
+    w - The width of the inscribed alpha-Koch Curve
+    beta - The angle parameter of the buffer region
+    orient - The angle of the starting orientations of the associated left and right regions
+    col1 - The R value in the RGB value of the color of the associated left region
+    col2 - The G value in the RGB value of the color of the associated left region
+    col3 - The B value in the RGB value of the color of the associated left region
+    col4 - The R value in the RGB value of the color of the associated center region
+    col5 - The G value in the RGB value of the color of the associated center region
+    col6 - The B value in the RGB value of the color of the associated center region
+    col7 - The R value in the RGB value of the color of the associated right region
+    col8 - The G value in the RGB value of the color of the associated right region
+    col9 - The B value in the RGB value of the color of the associated right region
+  Action: Creates and instance of an lRPair with the desired parameters
+  */
+  lRPair(boolean givenShowL, boolean givenShowR, int alpha, float x, float y, float w, float beta, float orient, int col1, int col2, int col3, int col4, int col5, int col6, int col7, int col8, int col9) {
+    showL = givenShowL;
+    showR = givenShowR;
+    col = new int[]{col4, col5, col6};
+    l = new leftRegion(x, y, w, alpha, beta, orient, col1, col2, col3);
+    r = new rightRegion(x, y, w, alpha, beta, orient, col7, col8, col9);
+  }
+  
+  /*
+  Inputs:
+    alpha - The alpha parameter of the inscribed alpha-Koch Curve
+    x - The x-coordinate of the p1 points of the associated left and right regions
+    y - The y-coordinate of the p1 points of the associated left and right regions
+    w - The width of the inscribed alpha-Koch Curve
+    beta - The angle parameter of the buffer region
+    orient - The angle of the starting orientations of the associated left and right regions
+    col1 - The R value in the RGB value of the color of the associated left region
+    col2 - The G value in the RGB value of the color of the associated left region
+    col3 - The B value in the RGB value of the color of the associated left region
+    col4 - The R value in the RGB value of the color of the associated center region
+    col5 - The G value in the RGB value of the color of the associated center region
+    col6 - The B value in the RGB value of the color of the associated center region
+    col7 - The R value in the RGB value of the color of the associated right region
+    col8 - The G value in the RGB value of the color of the associated right region
+    col9 - The B value in the RGB value of the color of the associated right region
+  Action: Creates and instance of an lRPair with the desired parameters. Both of the regions are shown by default.
+  */
+  lRPair(int alpha, float x, float y, float w, float beta, float orient, int col1, int col2, int col3, int col4, int col5, int col6, int col7, int col8, int col9) {
+    showL = true;
+    showR = true;
+    col = new int[]{col4, col5, col6};
+    l = new leftRegion(x, y, w, alpha, beta, orient, col1, col2, col3);
+    r = new rightRegion(x, y, w, alpha, beta, orient, col7, col8, col9);
+  }
+  
+  /*
+  Inputs:
+    givenShowL - A boolean stating weather the left region is to be displayed
+    givenShowR - A boolean stating weather the right region is to be shown
+    alpha - The alpha parameter of the inscribed alpha-Koch Curve
+    x - The x-coordinate of the p1 points of the associated left and right regions
+    y - The y-coordinate of the p1 points of the associated left and right regions
+    w - The width of the inscribed alpha-Koch Curve
+    beta - The angle parameter of the buffer region
+    orient - The angle of the starting orientations of the associated left and right regions
+  Action: Creates and instance of an lRPair with the desired parameters. The color of the left region is set to blue by default, the color of the right region to red, and the center to purple.
+  */
+  lRPair(boolean givenShowL, boolean givenShowR, int alpha, float x, float y, float w, float beta, float orient) {
+    showL = givenShowL;
+    showR = givenShowR;
+    col = new int[]{255, 0, 255};
+    l = new leftRegion(x, y, w, alpha, beta, orient);
+    r = new rightRegion(x, y, w, alpha, beta, orient);
+  }
+  
+  /*
+  Inputs:
+    givenShowL - A boolean stating weather the left region is to be displayed
+    givenShowR - A boolean stating weather the right region is to be shown
+    alpha - The alpha parameter of the inscribed alpha-Koch Curve
+    x - The x-coordinate of the p1 points of the associated left and right regions
+    y - The y-coordinate of the p1 points of the associated left and right regions
+    w - The width of the inscribed alpha-Koch Curve
+    beta - The angle parameter of the buffer region
+  Action: Creates and instance of an lRPair with the desired parameters. The color of the left region is set to blue by default, the color of the right region to red, and the center to purple. The
+  orientation is set to 0 degrees by default.
+  */
+  lRPair(boolean givenShowL, boolean givenShowR, int alpha, float x, float y, float w, float beta) {
+    showL = givenShowL;
+    showR = givenShowR;
+    col = new int[]{255, 0, 255};
+    l = new leftRegion(x, y, w, alpha, beta);
+    r = new rightRegion(x, y, w, alpha, beta);
+  }
+  
+  /*
+  Inputs:
+    alpha - The alpha parameter of the inscribed alpha-Koch Curve
+    x - The x-coordinate of the p1 points of the associated left and right regions
+    y - The y-coordinate of the p1 points of the associated left and right regions
+    w - The width of the inscribed alpha-Koch Curve
+    beta - The angle parameter of the buffer region
+    orient - The angle of the starting orientations of the associated left and right regions
+  Action: Creates and instance of an lRPair with the desired parameters. The color of the left region is set to blue by default, the color of the right region to red, and the center to purple. Both of the
+  regions are displayed by default.
+  */
+  lRPair(int alpha, float x, float y, float w, float beta, float orient) {
+    showL = true;
+    showR = true;
+    col = new int[]{255, 0, 255};
+    l = new leftRegion(x, y, w, alpha, beta, orient);
+    r = new rightRegion(x, y, w, alpha, beta, orient);
+  }
+  
+  /*
+  Inputs:
+    alpha - The alpha parameter of the inscribed alpha-Koch Curve
+    x - The x-coordinate of the p1 points of the associated left and right regions
+    y - The y-coordinate of the p1 points of the associated left and right regions
+    w - The width of the inscribed alpha-Koch Curve
+    beta - The angle parameter of the buffer region
+  Action: Creates and instance of an lRPair with the desired parameters. The color of the left region is set to blue by default, the color of the right region to red, and the center to purple. Both of the
+  regions are displayed by default. The orientation is set to 0 by default.
+  */
+  lRPair(int alpha, float x, float y, float w, float beta) {
+    showL = true;
+    showR = true;
+    col = new int[]{255, 0, 255};
+    l = new leftRegion(x, y, w, alpha, beta);
+    r = new rightRegion(x, y, w, alpha, beta);
+  }
+  
+  /*
+  Action: Displays the intersection of the left and right region without color
+  */
+  void displayIntersection() {
+    line(r.getP1().x, r.getP1().y, l.getP4().x, l.getP4().y);
+    line(l.getP4().x, l.getP4().y, r.getP3().x, r.getP3().y);
+    line(r.getP3().x, r.getP3().y, r.getP4().x, r.getP4().y);
+    line(r.getP4().x, r.getP4().y, r.getP1().x, r.getP1().y);
+  }
+  
+  /*
+  Action: Displayes the intersection of the left and right region with color
+  */
+  void displayFancyIntersection() {
+    if (showL) {
+      l.displayLeftRegion();
+    }
+    if (showR) {
+      r.displayRightRegion();
+    }
+    if (showL && showR) {
+      displayIntersection();
+      fill(col[0], col[1], col[2]);
+      beginShape();
+      vertex(r.getP1().x, r.getP1().y);
+      vertex(l.getP4().x, l.getP4().y);
+      vertex(r.getP3().x, r.getP3().y);
+      vertex(r.getP4().x, r.getP4().y);
+      endShape(CLOSE);
+    }
+  }
+  
+  /*
+  Action: Displays the left region and right region without color
+  */
+  void displayPair() {
+    if (showL) {
+      l.displayLeftRegion();
+    }
+    if (showR) {
+      r.displayRightRegion();
+    }
+  }
+  
+  /*
+  Action: Displays the left and right region with color and their intersection with color. By default the color the same as for left and right regions and their intersection is purple.
+  */
+  void displayFancyPair() {
+    if (showL) {
+      l.displayFancyLeftRegion();
+    }
+    if (showR) {
+      r.displayFancyRightRegion();
+    }
+    if (showR && showL) {
+      displayFancyIntersection();
+    }
+  }
+  
+  /*
+  Inputs:
+    centerX - The x-coordinate of the center of rotation
+    centerY - The y-coordinate of the center of rotation
+    deg - The number of degrees by which to rotate
+  Action: Rotates the left and right regions by the desired number of degrees clockwise about the given center
+  */
+  void rotateLRPair(float centerX, float centerY, float deg) {
+    l.rotateLeftRegion(centerX, centerY, deg);
+    r.rotateRightRegion(centerX, centerY, deg);
+  }
+  
+  /*
+  Input:
+    deg - The number of degrees by which to rotate the left and right region
+  Action: Rotates the left and right region by the desired number of degrees clockwise about p1 of the right region
+  */
+  void rotateLRPair(float deg) {
+    rotateLRPair(r.getP1().x, r.getP1().y, deg);
+  }
+  
+  /*
+  Inputs:
+    givenShowR - A boolean represnting weather the right region is to be displayed
+  Action: Sets showR to the given value
+  */
+  void setR(boolean givenShowR) {
+    showR = givenShowR;
+  }
+  
+  /*
+  Inputs:
+    givenShowL - A boolean representing weather the left region is to be displayed
+  Action: Sets showL to the given value
+  */
+  void setL(boolean givenShowL) {
+    showL = givenShowL;
+  }
+}

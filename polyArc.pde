@@ -9,10 +9,18 @@ class polyArc {
   */
   ArrayList<PVector> arc = new ArrayList<PVector>();
   
+  /*
+  Inputs:
+    givenCoords - An ArrayList containing the vertices of the polygonal arc
+  Action: Creates an instance of the polygonal arc
+  */
   polyArc(ArrayList<PVector> givenCoords) {
     arc = givenCoords;
   }
   
+  /*
+  Action: Displayes the polygonal arc
+  */
   void displayArc() {
     for(int i = 0; i < arc.size() - 1; i++) {
       line(arc.get(i).x, arc.get(i).y, arc.get(i + 1).x, arc.get(i + 1).y);

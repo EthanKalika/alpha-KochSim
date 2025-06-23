@@ -13,30 +13,42 @@ void setup(){
 }
 
 void simulate() {
-  lRPair pair1 = new lRPair(true, true, 75, 300, 400, 300, 15, 30, 3, 67, 24, 102, 55, 221, 174, 42, 1);
-  
-  // Displaye the pair
-  //pair1.displayPair();
-  pair1.displayFancyPair();
-  
-  // Rotate the pair and displaye it again
-  pair1.rotateLRPair(600, 200, 15);
+  kochCurve curve1 = new kochCurve(700, 350, 400, 60, 1, t);
+  //curve1.displayArc();
+  lRPair pair1 = new lRPair(curve1, true, true, 10);
   //pair1.displayPair();
   //pair1.displayFancyPair();
   
-  // Rotate it using differnt arguments
-  pair1.rotateLRPair(20);
-  //pair1.displayPair();
-  //pair1.displayFancyPair();
+  // Apply the 4 phi transformations to the L-R pair
+  lRPair pair2 = pair1.phi1();
+  lRPair pair3 = pair1.phi2();
+  lRPair pair4 = pair1.phi3();
+  lRPair pair5 = pair1.phi4();
+  //pair2.displayPair();
+  //pair3.displayPair();
+  //pair4.displayPair();
+  //pair5.displayPair();
+  //pair2.displayFancyPair();
+  //pair3.displayFancyPair();
+  //pair4.displayFancyPair();
+  //pair5.displayFancyPair();
   
-  // Use the setL and setR functions
-  pair1.setL(false);
-  //pair1.displayPair();
-  //pair1.displayFancyPair();
-  pair1.setL(true);
-  pair1.setR(false);
-  //pair1.displayPair();
-  //pair1.displayFancyPair();
+  // Rotate the L-R pair and perform the phi functions again
+  pair1.rotatePair(100, 200, 25);
+  pair1.displayPair();
+  
+  lRPair pair6 = pair1.phi1();
+  lRPair pair7 = pair1.phi2();
+  lRPair pair8 = pair1.phi3();
+  lRPair pair9 = pair1.phi4();
+  //pair6.displayPair();
+  //pair7.displayPair();
+  //pair8.displayPair();
+  //pair9.displayPair();
+  pair6.displayFancyPair();
+  pair7.displayFancyPair();
+  pair8.displayFancyPair();
+  pair9.displayFancyPair();
 }
 
 /* Example Simulations:
@@ -200,4 +212,127 @@ void simulate() {
   pair1.setR(false);
   //pair1.displayPair();
   //pair1.displayFancyPair();
+
+9. Creating regions based on a given alpha-Koch Curve
+  kochCurve curve1 = new kochCurve(700, 350, 550, 60, 1, t);
+  curve1.displayArc();
+  
+  // Create the circumscribing right region and the corresponding left region
+  rightRegion r1 = new rightRegion(curve1, 15);
+  leftRegion l1 = new leftRegion(curve1, 15);
+  r1.displayRightRegion();
+  //l1.displayLeftRegion();
+  
+  // Create the L-R pair corresponding to the curve
+  lRPair pair1 = new lRPair(curve1, true, true, 15);
+  //pair1.displayPair();
+  //pair1.displayFancyPair();
+  
+10. Applying the 4 phi transformations to left and right regions
+  kochCurve curve1 = new kochCurve(700, 350, 400, 60, 1, t);
+  curve1.displayArc();
+  
+  // Create the circumscribing right region and the corresponding left region
+  rightRegion r1 = new rightRegion(curve1, 15);
+  leftRegion l1 = new leftRegion(curve1, 15);
+  r1.displayRightRegion();
+  //l1.displayLeftRegion();
+  
+  // Apply the phi maps to the right region
+  rightRegion r2 = r1.phi1();
+  rightRegion r3 = r1.phi2();
+  rightRegion r4 = r1.phi3();
+  rightRegion r5 = r1.phi4();
+  r2.displayRightRegion();
+  r3.displayRightRegion();
+  r4.displayRightRegion();
+  r5.displayRightRegion();
+  //r2.displayFancyRightRegion();
+  //r3.displayFancyRightRegion();
+  //r4.displayFancyRightRegion();
+  //r5.displayFancyRightRegion();
+  
+  // Apply the phi maps to the left region
+  leftRegion l2 = l1.phi1();
+  leftRegion l3 = l1.phi2();
+  leftRegion l4 = l1.phi3();
+  leftRegion l5 = l1.phi4();
+  //l2.displayLeftRegion();
+  //l3.displayLeftRegion();
+  //l4.displayLeftRegion();
+  //l5.displayLeftRegion();
+  //l2.displayFancyLeftRegion();
+  //l3.displayFancyLeftRegion();
+  //l4.displayFancyLeftRegion();
+  //l5.displayFancyLeftRegion();
+  
+  // Repeat but with rotated left and right region
+  r1.rotateRightRegion(40);
+  l1.rotateLeftRegion(40);
+  //r1.displayRightRegion();
+  //l1.displayLeftRegion();
+  
+  rightRegion r6 = r1.phi1();
+  rightRegion r7 = r1.phi2();
+  rightRegion r8 = r1.phi3();
+  rightRegion r9 = r1.phi4();
+  //r6.displayRightRegion();
+  //r7.displayRightRegion();
+  //r8.displayRightRegion();
+  //r9.displayRightRegion();
+  //r6.displayFancyRightRegion();
+  //r7.displayFancyRightRegion();
+  //r8.displayFancyRightRegion();
+  //r9.displayFancyRightRegion();
+  
+  leftRegion l6 = l1.phi1();
+  leftRegion l7 = l1.phi2();
+  leftRegion l8 = l1.phi3();
+  leftRegion l9 = l1.phi4();
+  //l6.displayLeftRegion();
+  //l7.displayLeftRegion();
+  //l8.displayLeftRegion();
+  //l9.displayLeftRegion();
+  //l6.displayFancyLeftRegion();
+  //l7.displayFancyLeftRegion();
+  //l8.displayFancyLeftRegion();
+  //l9.displayFancyLeftRegion();
+  
+11. Applying the 4 phi transformations to L-R pairs
+  kochCurve curve1 = new kochCurve(700, 350, 400, 60, 1, t);
+  curve1.displayArc();
+  lRPair pair1 = new lRPair(curve1, true, true, 10);
+  pair1.displayPair();
+  //pair1.displayFancyPair();
+  
+  // Apply the 4 phi transformations to the L-R pair
+  lRPair pair2 = pair1.phi1();
+  lRPair pair3 = pair1.phi2();
+  lRPair pair4 = pair1.phi3();
+  lRPair pair5 = pair1.phi4();
+  //pair2.displayPair();
+  //pair3.displayPair();
+  //pair4.displayPair();
+  //pair5.displayPair();
+  pair2.displayFancyPair();
+  pair3.displayFancyPair();
+  pair4.displayFancyPair();
+  pair5.displayFancyPair();
+  
+  // Rotate the L-R pair and perform the phi functions again
+  pair1.rotatePair(100, 200, 25);
+  //pair1.displayPair();
+  
+  lRPair pair6 = pair1.phi1();
+  lRPair pair7 = pair1.phi2();
+  lRPair pair8 = pair1.phi3();
+  lRPair pair9 = pair1.phi4();
+  //pair6.displayPair();
+  //pair7.displayPair();
+  //pair8.displayPair();
+  //pair9.displayPair();
+  //pair6.displayFancyPair();
+  //pair7.displayFancyPair();
+  //pair8.displayFancyPair();
+  //pair9.displayFancyPair();
 */

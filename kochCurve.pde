@@ -115,4 +115,24 @@ class kochCurve {
   void rotateRightSubArc(int start, float deg) {
     alphaKoch.rotateRightSubArc(start, deg);
   }
+  
+  float getWidthOfCurve() {
+    return widthOfCurve;
+  }
+  
+  float getXPos() {
+    return xPos;
+  }
+  
+  float getYPos() {
+    return yPos;
+  }
+  
+  int getAlpha() {
+    return alpha;
+  }
+  
+  int getLevel() {
+    return level;
+  }
 }

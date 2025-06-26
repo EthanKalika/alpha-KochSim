@@ -13,42 +13,16 @@ void setup(){
 }
 
 void simulate() {
-  kochCurve curve1 = new kochCurve(700, 350, 400, 60, 1, t);
-  //curve1.displayArc();
-  lRPair pair1 = new lRPair(curve1, true, true, 10);
-  //pair1.displayPair();
-  //pair1.displayFancyPair();
+  kochCurve curve1 = new kochCurve(1400, 50, 700, 60, 4, t);
+  lRN lrn3 = new lRN(curve1, t, 10);
+  //lrn3.displayLRN();
+  lrn3.displayFancyLRN();
   
-  // Apply the 4 phi transformations to the L-R pair
-  lRPair pair2 = pair1.phi1();
-  lRPair pair3 = pair1.phi2();
-  lRPair pair4 = pair1.phi3();
-  lRPair pair5 = pair1.phi4();
-  //pair2.displayPair();
-  //pair3.displayPair();
-  //pair4.displayPair();
-  //pair5.displayPair();
-  //pair2.displayFancyPair();
-  //pair3.displayFancyPair();
-  //pair4.displayFancyPair();
-  //pair5.displayFancyPair();
-  
-  // Rotate the L-R pair and perform the phi functions again
-  pair1.rotatePair(100, 200, 25);
-  pair1.displayPair();
-  
-  lRPair pair6 = pair1.phi1();
-  lRPair pair7 = pair1.phi2();
-  lRPair pair8 = pair1.phi3();
-  lRPair pair9 = pair1.phi4();
-  //pair6.displayPair();
-  //pair7.displayPair();
-  //pair8.displayPair();
-  //pair9.displayPair();
-  pair6.displayFancyPair();
-  pair7.displayFancyPair();
-  pair8.displayFancyPair();
-  pair9.displayFancyPair();
+  // Rotate parts of the LRN
+  lrn3.rotateLeftSubFrame(20, 40);
+  lrn3.displayFancyLRN();
+  lrn3.rotateRightSubFrame(55, 50);
+  //lrn3.displayFancyLRN();
 }
 
 /* Example Simulations:
@@ -335,4 +309,41 @@ void simulate() {
   //pair7.displayFancyPair();
   //pair8.displayFancyPair();
   //pair9.displayFancyPair();
+  
+12. Making and Displaying LRN's
+  // These are some of the constructors for LRNs look at LRN file for more documentation on constructors.
+  lRN lrn1 = new lRN(true, true, 1400, 50, 700, 80, 5, t, 10, 186, 83, 49, 27, 99, 13, 174, 85, 227);
+  lRN lrn2 = new lRN(1300, 100, 600, 45, 3, t, 10);
+  //lrn1.displayLRN();
+  //lrn1.displayFancyLRN();
+  //lrn2.displayLRN();
+  lrn2.displayFancyLRN();
+  
+  // The left regions in lrn1 cause a lot of self-intersection so lets get a clearer picture by ommiting them.
+  lrn1.setShowL(false);
+  //lrn1.displayLRN();
+  //lrn1.displayFancyLRN();
+  // Now lets show for proof of concept that we can show only the left regions.
+  lrn1.setShowL(true);
+  lrn1.setShowR(false);
+  //lrn1.displayLRN();
+  //lrn1.displayFancyLRN();
+  
+  // A more convenient way is to create an LRN based on its associated alpha-Koch curve
+  kochCurve curve1 = new kochCurve(1400, 50, 700, 60, 4, t);
+  lRN lrn3 = new lRN(curve1, t, 10);
+  //lrn3.displayLRN();
+  //lrn3.displayFancyLRN();
+  
+13. Rotating sub-frameworks of LRN's
+  kochCurve curve1 = new kochCurve(1400, 50, 700, 60, 4, t);
+  lRN lrn3 = new lRN(curve1, t, 10);
+  //lrn3.displayLRN();
+  lrn3.displayFancyLRN();
+  
+  // Rotate parts of the LRN
+  lrn3.rotateLeftSubFrame(20, 40);
+  lrn3.displayFancyLRN();
+  lrn3.rotateRightSubFrame(55, 50);
+  //lrn3.displayFancyLRN();
 */

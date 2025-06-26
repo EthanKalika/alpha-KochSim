@@ -81,7 +81,7 @@ class lRPair {
   Action: Creates and instance of an lRPair with the desired parameters. The color of the left region is set to blue by default, the color of the right region to red, and the center to purple.
   */
   lRPair(boolean givenShowL, boolean givenShowR, int alpha, float x, float y, float w, float beta, float orient) {
-    this(givenShowL, givenShowR, alpha, x, y, w, beta, orient, 0, 0, 255, 255, 0, 255, 255, 0, 0);
+    this(givenShowL, givenShowR, alpha, x, y, w, beta, orient, 0, 0, 255, 128, 0, 128, 255, 0, 0);
   }
   
   /*
@@ -97,7 +97,7 @@ class lRPair {
   orientation is set to 0 degrees by default.
   */
   lRPair(boolean givenShowL, boolean givenShowR, int alpha, float x, float y, float w, float beta) {
-    this(givenShowL, givenShowR, alpha, x, y, w, beta, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0);
+    this(givenShowL, givenShowR, alpha, x, y, w, beta, 0, 0, 0, 255, 128, 0, 128, 255, 0, 0);
   }
   
   /*
@@ -112,7 +112,7 @@ class lRPair {
   regions are displayed by default.
   */
   lRPair(int alpha, float x, float y, float w, float beta, float orient) {
-    this(true, true, alpha, x, y, w, beta, orient, 0, 0, 255, 255, 0, 255, 255, 0, 0);
+    this(true, true, alpha, x, y, w, beta, orient, 0, 0, 255, 128, 0, 128, 255, 0, 0);
   }
   
   /*
@@ -126,7 +126,7 @@ class lRPair {
   regions are displayed by default. The orientation is set to 0 by default.
   */
   lRPair(int alpha, float x, float y, float w, float beta) {
-    this(true, true, alpha, x, y, w, beta, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0);
+    this(true, true, alpha, x, y, w, beta, 0, 0, 0, 255, 128, 0, 128, 255, 0, 0);
   }
   
   /*
@@ -144,7 +144,7 @@ class lRPair {
     col7 - The R value in the RGB value of the color of the associated right region
     col8 - The G value in the RGB value of the color of the associated right region
     col9 - The B value in the RGB value of the color of the associated right region
-  Action: Creates and instance of an lRPair with the right region circumscribed around the given curve.
+  Action: Creates and instance of an lRPair with the right region circumscribed around the given curve
   */
   lRPair(kochCurve curve, boolean givenShowL, boolean givenShowR, float beta, int col1, int col2, int col3, int col4, int col5, int col6, int col7, int col8, int col9) {
     this(givenShowL, givenShowR, curve.getAlpha(), curve.getXPos(), curve.getYPos(), curve.getWidthOfCurve(), beta, 0, col1, col2, col3, col4, col5, col6, col7, col8, col9);
@@ -156,10 +156,10 @@ class lRPair {
     givenShowL - A boolean stating weather the left region is to be displayed
     givenShowR - A boolean stating weather the right region is to be shown
     beta - The angle parameter of the buffer region
-  Action: Creates and instance of an lRPair with the right region circumscribed around the given curve.
+  Action: Creates and instance of an lRPair with the right region circumscribed around the given curve
   */
   lRPair(kochCurve curve, boolean givenShowL, boolean givenShowR, float beta) {
-    this(givenShowL, givenShowR, curve.getAlpha(), curve.getXPos(), curve.getYPos(), curve.getWidthOfCurve(), beta, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0);
+    this(givenShowL, givenShowR, curve.getAlpha(), curve.getXPos(), curve.getYPos(), curve.getWidthOfCurve(), beta, 0, 0, 0, 255, 128, 0, 128, 255, 0, 0);
   }
   
   /*
@@ -243,24 +243,6 @@ class lRPair {
   }
   
   /*
-  Inputs:
-    givenShowR - A boolean represnting weather the right region is to be displayed
-  Action: Sets showR to the given value
-  */
-  void setR(boolean givenShowR) {
-    showR = givenShowR;
-  }
-  
-  /*
-  Inputs:
-    givenShowL - A boolean representing weather the left region is to be displayed
-  Action: Sets showL to the given value
-  */
-  void setL(boolean givenShowL) {
-    showL = givenShowL;
-  }
-  
-  /*
   Action: Copies the L-R pair and applys the phi_1 transformation to it
   */
   lRPair phi1() {
@@ -286,5 +268,43 @@ class lRPair {
   */
   lRPair phi4() {
     return new lRPair(showL, showR, right.getAlpha(), right.getX() + right.getL() * (1 + 2 * cos(radians(right.getAlpha()))) * cos(radians(right.getOrient())), right.getY() + right.getL() * (1 + 2 * cos(radians(right.getAlpha()))) * sin(radians(right.getOrient())), right.getL(), right.getBeta(), right.getOrient(), left.getCol()[0], left.getCol()[1], left.getCol()[2], col[0], col[1], col[2], right.getCol()[0], right.getCol()[1], right.getCol()[2]);
+  }
+  
+  /*
+  Inputs:
+    givenShowR - A boolean represnting weather the right region is to be displayed
+  Action: Sets showR to the given value
+  */
+  void setR(boolean givenShowR) {
+    showR = givenShowR;
+  }
+  
+  /*
+  Inputs:
+    givenShowL - A boolean representing weather the left region is to be displayed
+  Action: Sets showL to the given value
+  */
+  void setL(boolean givenShowL) {
+    showL = givenShowL;
+  }
+  
+  boolean getShowL() {
+    return showL;
+  }
+  
+  boolean getShowR() {
+    return showR;
+  }
+  
+  int[] getCol() {
+    return col;
+  }
+  
+  rightRegion getRight() {
+    return right;
+  }
+  
+  leftRegion getLeft() {
+    return left;
   }
 }

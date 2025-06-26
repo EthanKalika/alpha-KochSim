@@ -135,4 +135,8 @@ class kochCurve {
   int getLevel() {
     return level;
   }
+  
+  polyArc getArc() {
+    return alphaKoch;
+  }
 }

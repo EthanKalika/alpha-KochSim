@@ -50,4 +50,8 @@ class polyArc {
       arc.set(i, arc.get(i).sub(arc.get(end)).rotate(radians(deg)).add(arc.get(end)));
     }
   }
+  
+  ArrayList<PVector> getPoints() {
+    return arc;
+  }
 }

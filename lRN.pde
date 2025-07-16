@@ -3,10 +3,16 @@ Author: Ethan Kalika
 Date: June 20, 2025
 */
 
-class lRN {
+class LRN {
+  /*
+  showL - Boolean representing whether to show the left regions or not
+  showR - Boolean representing whether to show the right regions or not
+  regions - An ArrayList that contains all the regions associated with the LRN
+  alphaKoch - The alpha-Koch curve associated with the LRN
+  */
   boolean showL, showR;
-  ArrayList<lRPair> regions;
-  kochCurve alphaKoch;
+  ArrayList<LRPair> regions;
+  KochCurve alphaKoch;
   
   /*
   Inputs:
@@ -30,12 +36,12 @@ class lRN {
     col9 - The B value of the RGB value of the color of the right regions
   Action: Creates an LRN with the desired parameters
   */
-  lRN(boolean l, boolean r, float wOC, float x, float y, int alpha, int level, turtleDrawer turtle, float beta, int col1, int col2, int col3, int col4, int col5, int col6, int col7, int col8, int col9) {
+  LRN(boolean l, boolean r, float wOC, float x, float y, int alpha, int level, TurtleDrawer turtle, float beta, int col1, int col2, int col3, int col4, int col5, int col6, int col7, int col8, int col9) {
     showL = l;
     showR = r;
-    alphaKoch = new kochCurve(wOC, x, y, alpha, level, turtle);
-    lRPair rootPair = new lRPair(alphaKoch, l, r, beta, col1, col2, col3, col4, col5, col6, col7, col8, col9);
-    regions = new ArrayList<lRPair>();
+    alphaKoch = new KochCurve(wOC, x, y, alpha, level, turtle);
+    LRPair rootPair = new LRPair(alphaKoch, l, r, beta, col1, col2, col3, col4, col5, col6, col7, col8, col9);
+    regions = new ArrayList<LRPair>();
     calcRegions(level, rootPair, regions);
   }
   
@@ -59,7 +65,7 @@ class lRN {
     col9 - The B value of the RGB value of the color of the right regions
   Action: Creates an LRN with the desired parameters. By default both the left and right regions are shown.
   */
-  lRN(float wOC, float x, float y, int alpha, int level, turtleDrawer turtle, float beta, int col1, int col2, int col3, int col4, int col5, int col6, int col7, int col8, int col9) {
+  LRN(float wOC, float x, float y, int alpha, int level, TurtleDrawer turtle, float beta, int col1, int col2, int col3, int col4, int col5, int col6, int col7, int col8, int col9) {
     this(true, true, wOC, x, y, alpha, level, turtle, beta, col1, col2, col3, col4, col5, col6, col7, col8, col9);
   }
   
@@ -76,7 +82,7 @@ class lRN {
     beta - The buffer region for the left and right regions
   Action: Creates an LRN with the desired parameters. By defualt the left regions are blue, right regions are red, and the intersections are purple.
   */
-  lRN(boolean l, boolean r, float wOC, float x, float y, int alpha, int level, turtleDrawer turtle, float beta) {
+  LRN(boolean l, boolean r, float wOC, float x, float y, int alpha, int level, TurtleDrawer turtle, float beta) {
     this(l, r, wOC, x, y, alpha, level, turtle, beta, 0, 0, 255, 128, 0, 128, 255, 0, 0);
   }
   
@@ -91,7 +97,7 @@ class lRN {
     beta - The buffer region for the left and right regions
   Action: Creates an LRN with the desired parameters. By defualt the left regions are blue, right regions are red, and the intersections are purple. By default both the left and right regions are shown.
   */
-  lRN(float wOC, float x, float y, int alpha, int level, turtleDrawer turtle, float beta) {
+  LRN(float wOC, float x, float y, int alpha, int level, TurtleDrawer turtle, float beta) {
     this(true, true, wOC, x, y, alpha, level, turtle, beta, 0, 0, 255, 128, 0, 128, 255, 0, 0);
   }
   
@@ -112,7 +118,7 @@ class lRN {
     col9 - The B value of the RGB value of the color of the right regions
   Action: Creates an LRN associated the given alpha-Koch Curve. 
   */
-  lRN(kochCurve curve, turtleDrawer turtle, boolean l, boolean r, float beta, int col1, int col2, int col3, int col4, int col5, int col6, int col7, int col8, int col9) {
+  LRN(KochCurve curve, TurtleDrawer turtle, boolean l, boolean r, float beta, int col1, int col2, int col3, int col4, int col5, int col6, int col7, int col8, int col9) {
     this(l, r, curve.getWidthOfCurve(), curve.getXPos(), curve.getYPos(), curve.getAlpha(), curve.getLevel(), turtle, beta, col1, col2, col3, col4, col5, col6, col7, col8, col9);
   }
   
@@ -124,7 +130,7 @@ class lRN {
     beta - The buffer region for the left and right regions
   Action: Creates an LRN associated the given alpha-Koch Curve. By defualt the left regions are blue, right regions are red, and the intersections are purple.
   */
-  lRN(kochCurve curve, turtleDrawer turtle, boolean l, boolean r, float beta) {
+  LRN(KochCurve curve, TurtleDrawer turtle, boolean l, boolean r, float beta) {
     this(l, r, curve.getWidthOfCurve(), curve.getXPos(), curve.getYPos(), curve.getAlpha(), curve.getLevel(), turtle, beta, 0, 0, 255, 128, 0, 128, 255, 0, 0);
   }
   
@@ -135,7 +141,7 @@ class lRN {
   Action: Creates an LRN associated the given alpha-Koch Curve. By defualt the left regions are blue, right regions are red, and the intersections are purple. By default both the left and right regions
   are shown.
   */
-  lRN(kochCurve curve, turtleDrawer turtle, float beta) {
+  LRN(KochCurve curve, TurtleDrawer turtle, float beta) {
     this(true, true, curve.getWidthOfCurve(), curve.getXPos(), curve.getYPos(), curve.getAlpha(), curve.getLevel(), turtle, beta, 0, 0, 255, 128, 0, 128, 255, 0, 0);
   }
   
@@ -146,10 +152,11 @@ class lRN {
     pairList - A list used to store the calculated lRPairs
   Action: This is a helper method used to calcualte the left and right regions in the LRN and store them in an ArrayList.
   */
-  private void calcRegions(int level,  lRPair pair, ArrayList<lRPair> pairList) {
+  private void calcRegions(int level,  LRPair pair, ArrayList<LRPair> pairList) {
     if(level == 0) {
       pairList.add(pair);
-    } else {
+    }
+    else {
       calcRegions(level - 1, pair.phi1(), pairList);
       calcRegions(level - 1, pair.phi2(), pairList);
       calcRegions(level - 1, pair.phi3(), pairList);
@@ -161,7 +168,7 @@ class lRN {
   Action: This displays the LRN without the assigned colors.
   */
   void displayLRN() {
-     for(lRPair i : regions) {
+     for(LRPair i : regions) {
        i.displayPair();
       }
      alphaKoch.displayArc();
@@ -171,7 +178,7 @@ class lRN {
   Action: This displays the LRN with the assigned colors.
   */
   void displayFancyLRN() {
-    for(lRPair i : regions) {
+    for(LRPair i : regions) {
       i.displayFancyPair();
     }
     alphaKoch.displayArc();
@@ -205,16 +212,26 @@ class lRN {
     }
   }
   
+  /*
+  Inputs:
+    givenL - The value to which the showL value should be set set
+  Action: Sets the showL value to givenL
+  */
   void setShowL(boolean givenL) {
     showL = givenL;
-    for (lRPair i : regions) {
+    for (LRPair i : regions) {
       i.setL(givenL);
     }
   }
   
+  /*
+  Inputs:
+    givenR - The value to which the showR value should be set set
+  Action: Sets the showL value to givenR
+  */
   void setShowR(boolean givenR) {
     showR = givenR;
-    for (lRPair i : regions) {
+    for (LRPair i : regions) {
       i.setR(givenR);
     }
   }

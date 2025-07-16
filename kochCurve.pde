@@ -5,7 +5,7 @@ Date: May 22, 2025
 
 import java.util.HashMap;
 
-class kochCurve {
+class KochCurve {
   /*
   widthOfCurve - The width of the curve
   xPos - The x-coordinate of the position of the leftmost point on the curve
@@ -17,8 +17,8 @@ class kochCurve {
   */
   float widthOfCurve, xPos, yPos;
   int alpha, level;
-  turtleDrawer t;
-  polyArc alphaKoch;
+  TurtleDrawer t;
+  PolyArc alphaKoch;
   
   /*
   Inputs:
@@ -30,14 +30,14 @@ class kochCurve {
     turtle - The object used to help draw the curve
   Action: Creates an instance of the alpha-Koch curve with the desirec parameters.
   */
-  kochCurve(float lengthSide, float startX, float startY, int givenAlpha, int givenLevel, turtleDrawer turtle) {
+  KochCurve(float lengthSide, float startX, float startY, int givenAlpha, int givenLevel, TurtleDrawer turtle) {
     widthOfCurve = lengthSide;
     xPos = startX;
     yPos = startY;
     alpha = givenAlpha;
     level = givenLevel;
     t = turtle;
-    alphaKoch = new polyArc(calcPoints(lengthSide, startX, startY, givenAlpha, givenLevel, turtle));
+    alphaKoch = new PolyArc(calcPoints(lengthSide, startX, startY, givenAlpha, givenLevel, turtle));
   }
   
   /*
@@ -50,7 +50,7 @@ class kochCurve {
     turtle - The object used to help draw the curve
   Action: The is a private function and is not called by the user. It is only used internally. This function performs the necessary setup to calculate the points on the alpha-Koch curve.
   */
-  private ArrayList<PVector> calcPoints(float lengthSide, float startX, float startY, int givenAlpha, int givenLevel, turtleDrawer turtle) {
+  private ArrayList<PVector> calcPoints(float lengthSide, float startX, float startY, int givenAlpha, int givenLevel, TurtleDrawer turtle) {
     ArrayList<PVector> vertices = new ArrayList<PVector>();
     turtle.setPos(startX, startY);
     vertices.add(turtle.getPos());
@@ -69,12 +69,13 @@ class kochCurve {
     memo - A HashMap used to store information needed during calculation of the poitns on the curve so that it doesn not need to be recalcualted later.
   Action: The is a private function and is not called by the user. It is only used internally. This function calculates the points on the alpha-Koch curve and stores them in the "vertices" ArrayList.
   */
-  private void recursiveCalcPoints(float lengthSide, int givenAlpha, int levels, turtleDrawer turtle, ArrayList<PVector> vertices, HashMap<Integer, Float> memo) {
+  private void recursiveCalcPoints(float lengthSide, int givenAlpha, int levels, TurtleDrawer turtle, ArrayList<PVector> vertices, HashMap<Integer, Float> memo) {
     if (levels == 0) {
       t.forward(lengthSide);
       vertices.add(t.getPos());
       return;
-    } else {
+    }
+    else {
       if (!memo.containsKey(levels)) {
         memo.put(levels, lengthSide / (2.0 * (1 + cos(radians(givenAlpha)))));
       }
@@ -136,7 +137,7 @@ class kochCurve {
     return level;
   }
   
-  polyArc getArc() {
+  PolyArc getArc() {
     return alphaKoch;
   }
 }

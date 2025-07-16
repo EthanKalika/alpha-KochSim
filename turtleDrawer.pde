@@ -3,7 +3,7 @@ Author: Ethan Kalika
 Date: May 22, 2025
 */
 
-class turtleDrawer {
+class TurtleDrawer {
   /*
   isUp - Boolean indicating if the pen will draw
   angle - The direction the turtle is facing
@@ -20,7 +20,7 @@ class turtleDrawer {
     lifted - A boolean representing if the turtleDrawer is lifted or not. The turtleDrawer will only draw when it is not lifted.
   Action: Creates an instance of a turtle drawer with the desired paramteres. The starting anlge is set to 0 by default.
   */
-  turtleDrawer(float startX, float startY, boolean lifted) {
+  TurtleDrawer(float startX, float startY, boolean lifted) {
     coord = new PVector(startX, startY);
     angle = 0;
     isUp = lifted;
@@ -32,7 +32,7 @@ class turtleDrawer {
     startY - The starting y-coordinate of the turtleDrawer
   Action: Creates an instance of a turtle drawer with the desired paramteres. The starting anlge is set to 0 by default. By default the turtleDrawer is lifted and will not draw.
   */
-  turtleDrawer(float startX, float startY) {
+  TurtleDrawer(float startX, float startY) {
     this(startX, startY, true);
   }
   

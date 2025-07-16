@@ -1,9 +1,9 @@
 /*
 Author: Ethan Kalika
-Date: May 22, 2025
+Date: Jun 15, 2025
 */
 
-class rightRegion {
+class RightRegion {
   /*
   x - The x-coordinate of the leftmost point of the curve
   y - The y-coordinate of the leftmost point of the curve
@@ -25,18 +25,18 @@ class rightRegion {
   
   /*
   Inputs:
-    givenX - The x-coordinate of the left most point of the right region
-    givenY - The y-coordinate of the left most point of the right region
+    givenX - The x-coordinate of the left most point of the left region
+    givenY - The y-coordinate of the left most point of the left region
     givenL - The width of the inscribed alpha-Koch curve
     givenAlpha - The alpha parameter of the inscribed alpha-Koch curve
     givenBeta - The angle for the buffer region
-    givenOrient - The initial orientation of the right region
-    givenR - The R value of the RGB representation of the color of the right region
-    givenG - The G value of the RGB representation of the color of the right region
-    givenB - The B value of the RGB representation of the color of the right region
+    givenOrient - The initial orientation of the left region
+    givenR - The R value of the RGB representation of the color of the left region
+    givenG - The G value of the RGB representation of the color of the left region
+    givenB - The B value of the RGB representation of the color of the left region
   Action: Creates an instance of a left region with the desired parameters
   */
-  rightRegion(float givenX, float givenY, float givenL, int givenAlpha, float givenBeta, float givenOrient, int givenR, int givenG, int givenB) {
+  RightRegion(float givenX, float givenY, float givenL, int givenAlpha, float givenBeta, float givenOrient, int givenR, int givenG, int givenB) {
     x = givenX;
     y = givenY;
     w = givenL;
@@ -46,9 +46,9 @@ class rightRegion {
     l = w / (2 + 2 * cos(radians(alpha)));
     PVector displacementVec = new PVector(x, y);
     p1 = new PVector(0, 0);
-    p2 = new PVector(w / 2, - l * sin(radians(alpha)));
+    p2 = new PVector(w / 2, l * sin(radians(alpha)));
     p3 = new PVector(w, 0);
-    p4 = new PVector(w / 2, w / 2 * tan(radians(beta)));
+    p4 = new PVector(w / 2, - w / 2 * tan(radians(beta)));
     p1.rotate(radians(orient));
     p2.rotate(radians(orient));
     p3.rotate(radians(orient));
@@ -65,28 +65,28 @@ class rightRegion {
   
   /*
   Inputs:
-    givenX - The x-coordinate of the left most point of the right region
-    givenY - The y-coordinate of the left most point of the right region
+    givenX - The x-coordinate of the left most point of the left region
+    givenY - The y-coordinate of the left most point of the left region
     givenL - The width of the inscribed alpha-Koch curve
     givenAlpha - The alpha parameter of the inscribed alpha-Koch curve
     givenBeta - The angle for the buffer region
-    givenOrient - The initial orientation of the right region
-  Action: Creates an instance of a left region with the desired parameters. The color is set to red by default.
+    givenOrient - The initial orientation of the left region
+  Action: Creates an instance of a left region with the desired parameters. The color is set to blue by default.
   */
-  rightRegion(float givenX, float givenY, float givenL, int givenAlpha, float givenBeta, float givenOrient) {
-    this(givenX, givenY, givenL, givenAlpha, givenBeta, givenOrient, 255, 0, 0);
+  RightRegion(float givenX, float givenY, float givenL, int givenAlpha, float givenBeta, float givenOrient) {
+    this(givenX, givenY, givenL, givenAlpha, givenBeta, givenOrient, 0, 0, 255);
   }
   
   /*
   Inputs:
-    givenX - The x-coordinate of the left most point of the right region
-    givenY - The y-coordinate of the left most point of the right region
+    givenX - The x-coordinate of the left most point of the left region
+    givenY - The y-coordinate of the left most point of the left region
     givenL - The width of the inscribed alpha-Koch curve
     givenAlpha - The alpha parameter of the inscribed alpha-Koch curve
     givenBeta - The angle for the buffer region
-  Action: Creates an instance of a left region with the desired parameters. The color is set to red by default. The orientation is set to 0 by default.
+  Action: Creates an instance of a left region with the desired parameters. The color is set to blue by default. The orientation is set to 0 by default.
   */
-  rightRegion(float givenX, float givenY, float givenL, int givenAlpha, float givenBeta) {
+  RightRegion(float givenX, float givenY, float givenL, int givenAlpha, float givenBeta) {
     this(givenX, givenY, givenL, givenAlpha, givenBeta, 0);
   }
   
@@ -94,17 +94,17 @@ class rightRegion {
   Inputs:
     curve - A pre-existing alpha-Koch Curve
     givenBeta - The angle for the buffer region
-  Action: Creates an instance of a right region with the desired parameters. The color is set to red by default. The orientation is set to 0 by default. The right region is set to be circumscribed about
+  Action: Creates an instance of a left region with the desired parameters. The color is set to red by default. The orientation is set to 0 by default. The right region is set to be circumscribed about
   the given curve.
   */
-  rightRegion(kochCurve curve, float givenBeta) {
+  RightRegion(KochCurve curve, float givenBeta) {
     this(curve.getXPos(), curve.getYPos(), curve.getWidthOfCurve(), curve.getAlpha(), givenBeta, 0);
   }
   
   /*
-  Action: Draws the right region
+  Action: Draws the left region
   */
-  void displayRightRegion() {
+  void displayRightRegion(){
     line(p1.x, p1.y, p2.x, p2.y);
     line(p2.x, p2.y, p3.x, p3.y);
     line(p3.x, p3.y, p4.x, p4.y);
@@ -112,7 +112,7 @@ class rightRegion {
   }
   
   /*
-  Action: Draws the right region with the desired color
+  Action: Draws the left region with the desired color
   */
   void displayFancyRightRegion() {
     displayRightRegion();
@@ -133,8 +133,8 @@ class rightRegion {
   Action: Rotates the right region clockwise by the indicated number of degrees about the indicated center
   */
   void rotateRightRegion(float givenX, float givenY, float deg) {
-    orient += deg;
     PVector displacementVec = new PVector(givenX, givenY);
+    orient += deg;
     p1.sub(displacementVec);
     p2.sub(displacementVec);
     p3.sub(displacementVec);
@@ -161,31 +161,31 @@ class rightRegion {
   }
   
   /*
-  Action: Copies the right region and applys the phi_1 transformation to it
+  Action: Copies the left region and applys the phi_1 transformation to it
   */
-  rightRegion phi1() {
-    return new rightRegion(x, y, l, alpha, beta, orient, col[0], col[1], col[2]);
+  RightRegion phi1() {
+    return new RightRegion(x, y, l, alpha, beta, orient, col[0], col[1], col[2]);
   }
   
   /*
-  Action: Copies the right region and applys the phi_2 transformation to it
+  Action: Copies the left region and applys the phi_2 transformation to it
   */
-  rightRegion phi2() {
-    return new rightRegion(x + l * cos(radians(orient)), y + l * sin(radians(orient)), l, alpha, beta, orient - alpha, col[0], col[1], col[2]);
+  RightRegion phi2() {
+    return new RightRegion(x + l * cos(radians(orient)), y + l * sin(radians(orient)), l, alpha, beta, orient - alpha, col[0], col[1], col[2]);
   }
   
   /*
-  Action: Copies the right region and applys the phi_3 transformation to it
+  Action: Copies the left region and applys the phi_3 transformation to it
   */
-  rightRegion phi3() {
-    return new rightRegion(x + l * cos(radians(orient)) + l * cos(radians(orient - alpha)), y + l * sin(radians(orient)) + l * sin(radians(orient - alpha)), l, alpha, beta, orient + alpha, col[0], col[1], col[2]);
+  RightRegion phi3() {
+    return new RightRegion(x + l * cos(radians(orient)) + l * cos(radians(orient - alpha)), y + l * sin(radians(orient)) + l * sin(radians(orient - alpha)), l, alpha, beta, orient + alpha, col[0], col[1], col[2]);
   }
   
   /*
-  Action: Copies the right region and applys the phi_4 transformation to it
+  Action: Copies the left region and applys the phi_4 transformation to it
   */
-  rightRegion phi4() {
-    return new rightRegion(x + l * (1 + 2 * cos(radians(alpha))) * cos(radians(orient)), y + l * (1 + 2 * cos(radians(alpha))) * sin(radians(orient)), l, alpha, beta, orient, col[0], col[1], col[2]);
+  RightRegion phi4() {
+    return new RightRegion(x + l * (1 + 2 * cos(radians(alpha))) * cos(radians(orient)), y + l * (1 + 2 * cos(radians(alpha))) * sin(radians(orient)), l, alpha, beta, orient, col[0], col[1], col[2]);
   }
   
   PVector getP1() {
@@ -234,5 +234,11 @@ class rightRegion {
   
   int[] getCol() {
     return col;
+  }
+  
+  void setCol(int r, int g, int b) {
+    col[0] = r;
+    col[1] = g;
+    col[2] = b;
   }
 }

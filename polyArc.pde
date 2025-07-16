@@ -3,7 +3,7 @@ Author: Ethan Kalika
 Date: June 18, 2025
 */
 
-class polyArc {
+class PolyArc {
   /*
   arc - An ArrayList of PVector objects that holds the coordintes of the vertices of the polygonal arc
   */
@@ -14,7 +14,7 @@ class polyArc {
     givenCoords - An ArrayList containing the vertices of the polygonal arc
   Action: Creates an instance of the polygonal arc
   */
-  polyArc(ArrayList<PVector> givenCoords) {
+  PolyArc(ArrayList<PVector> givenCoords) {
     arc = givenCoords;
   }
   

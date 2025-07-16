@@ -3,7 +3,7 @@ Author: Ethan Kalika
 Date: June 20, 2025
 */
 
-class lRPair {
+class LRPair {
   /*
   showL - A boolean stating weather to show the left region
   showR - A boolean stating weather to show the right region
@@ -13,8 +13,8 @@ class lRPair {
   */
   boolean showL, showR;
   int[] col;
-  leftRegion left;
-  rightRegion right;
+  LeftRegion left;
+  RightRegion right;
   
   /*
   Inputs:
@@ -37,12 +37,12 @@ class lRPair {
     col9 - The B value in the RGB value of the color of the associated right region
   Action: Creates and instance of an lRPair with the desired parameters
   */
-  lRPair(boolean givenShowL, boolean givenShowR, int alpha, float x, float y, float w, float beta, float orient, int col1, int col2, int col3, int col4, int col5, int col6, int col7, int col8, int col9) {
+  LRPair(boolean givenShowL, boolean givenShowR, int alpha, float x, float y, float w, float beta, float orient, int col1, int col2, int col3, int col4, int col5, int col6, int col7, int col8, int col9) {
     showL = givenShowL;
     showR = givenShowR;
     col = new int[]{col4, col5, col6};
-    left = new leftRegion(x, y, w, alpha, beta, orient, col1, col2, col3);
-    right = new rightRegion(x, y, w, alpha, beta, orient, col7, col8, col9);
+    left = new LeftRegion(x, y, w, alpha, beta, orient, col1, col2, col3);
+    right = new RightRegion(x, y, w, alpha, beta, orient, col7, col8, col9);
   }
   
   /*
@@ -64,7 +64,7 @@ class lRPair {
     col9 - The B value in the RGB value of the color of the associated right region
   Action: Creates and instance of an lRPair with the desired parameters. Both of the regions are shown by default.
   */
-  lRPair(int alpha, float x, float y, float w, float beta, float orient, int col1, int col2, int col3, int col4, int col5, int col6, int col7, int col8, int col9) {
+  LRPair(int alpha, float x, float y, float w, float beta, float orient, int col1, int col2, int col3, int col4, int col5, int col6, int col7, int col8, int col9) {
     this(true, true, alpha, x, y, w, beta, orient, col1, col2, col3, col4, col5, col6, col7, col8, col9);
   }
   
@@ -80,7 +80,7 @@ class lRPair {
     orient - The angle of the starting orientations of the associated left and right regions
   Action: Creates and instance of an lRPair with the desired parameters. The color of the left region is set to blue by default, the color of the right region to red, and the center to purple.
   */
-  lRPair(boolean givenShowL, boolean givenShowR, int alpha, float x, float y, float w, float beta, float orient) {
+  LRPair(boolean givenShowL, boolean givenShowR, int alpha, float x, float y, float w, float beta, float orient) {
     this(givenShowL, givenShowR, alpha, x, y, w, beta, orient, 0, 0, 255, 128, 0, 128, 255, 0, 0);
   }
   
@@ -96,7 +96,7 @@ class lRPair {
   Action: Creates and instance of an lRPair with the desired parameters. The color of the left region is set to blue by default, the color of the right region to red, and the center to purple. The
   orientation is set to 0 degrees by default.
   */
-  lRPair(boolean givenShowL, boolean givenShowR, int alpha, float x, float y, float w, float beta) {
+  LRPair(boolean givenShowL, boolean givenShowR, int alpha, float x, float y, float w, float beta) {
     this(givenShowL, givenShowR, alpha, x, y, w, beta, 0, 0, 0, 255, 128, 0, 128, 255, 0, 0);
   }
   
@@ -111,7 +111,7 @@ class lRPair {
   Action: Creates and instance of an lRPair with the desired parameters. The color of the left region is set to blue by default, the color of the right region to red, and the center to purple. Both of the
   regions are displayed by default.
   */
-  lRPair(int alpha, float x, float y, float w, float beta, float orient) {
+  LRPair(int alpha, float x, float y, float w, float beta, float orient) {
     this(true, true, alpha, x, y, w, beta, orient, 0, 0, 255, 128, 0, 128, 255, 0, 0);
   }
   
@@ -125,7 +125,7 @@ class lRPair {
   Action: Creates and instance of an lRPair with the desired parameters. The color of the left region is set to blue by default, the color of the right region to red, and the center to purple. Both of the
   regions are displayed by default. The orientation is set to 0 by default.
   */
-  lRPair(int alpha, float x, float y, float w, float beta) {
+  LRPair(int alpha, float x, float y, float w, float beta) {
     this(true, true, alpha, x, y, w, beta, 0, 0, 0, 255, 128, 0, 128, 255, 0, 0);
   }
   
@@ -146,7 +146,7 @@ class lRPair {
     col9 - The B value in the RGB value of the color of the associated right region
   Action: Creates and instance of an lRPair with the right region circumscribed around the given curve
   */
-  lRPair(kochCurve curve, boolean givenShowL, boolean givenShowR, float beta, int col1, int col2, int col3, int col4, int col5, int col6, int col7, int col8, int col9) {
+  LRPair(KochCurve curve, boolean givenShowL, boolean givenShowR, float beta, int col1, int col2, int col3, int col4, int col5, int col6, int col7, int col8, int col9) {
     this(givenShowL, givenShowR, curve.getAlpha(), curve.getXPos(), curve.getYPos(), curve.getWidthOfCurve(), beta, 0, col1, col2, col3, col4, col5, col6, col7, col8, col9);
   }
   
@@ -158,7 +158,7 @@ class lRPair {
     beta - The angle parameter of the buffer region
   Action: Creates and instance of an lRPair with the right region circumscribed around the given curve
   */
-  lRPair(kochCurve curve, boolean givenShowL, boolean givenShowR, float beta) {
+  LRPair(KochCurve curve, boolean givenShowL, boolean givenShowR, float beta) {
     this(givenShowL, givenShowR, curve.getAlpha(), curve.getXPos(), curve.getYPos(), curve.getWidthOfCurve(), beta, 0, 0, 0, 255, 128, 0, 128, 255, 0, 0);
   }
   
@@ -245,29 +245,29 @@ class lRPair {
   /*
   Action: Copies the L-R pair and applys the phi_1 transformation to it
   */
-  lRPair phi1() {
-    return new lRPair(showL, showR, right.getAlpha(), right.getX(), right.getY(), right.getL(), right.getBeta(), right.getOrient(), left.getCol()[0], left.getCol()[1], left.getCol()[2], col[0], col[1], col[2], right.getCol()[0], right.getCol()[1], right.getCol()[2]);
+  LRPair phi1() {
+    return new LRPair(showL, showR, right.getAlpha(), right.getX(), right.getY(), right.getL(), right.getBeta(), right.getOrient(), left.getCol()[0], left.getCol()[1], left.getCol()[2], col[0], col[1], col[2], right.getCol()[0], right.getCol()[1], right.getCol()[2]);
   }
   
   /*
   Action: Copies the L-R pair and applys the phi_2 transformation to it
   */
-  lRPair phi2() {
-    return new lRPair(showL, showR, right.getAlpha(), right.getX() + right.getL() * cos(radians(right.getOrient())), right.getY() + right.getL() * sin(radians(right.getOrient())), right.getL(), right.getBeta(), right.getOrient() - right.getAlpha(), left.getCol()[0], left.getCol()[1], left.getCol()[2], col[0], col[1], col[2], right.getCol()[0], right.getCol()[1], right.getCol()[2]);
+  LRPair phi2() {
+    return new LRPair(showL, showR, right.getAlpha(), right.getX() + right.getL() * cos(radians(right.getOrient())), right.getY() + right.getL() * sin(radians(right.getOrient())), right.getL(), right.getBeta(), right.getOrient() - right.getAlpha(), left.getCol()[0], left.getCol()[1], left.getCol()[2], col[0], col[1], col[2], right.getCol()[0], right.getCol()[1], right.getCol()[2]);
   }
   
   /*
   Action: Copies the L-R pair and applys the phi_3 transformation to it
   */
-  lRPair phi3() {
-    return new lRPair(showL, showR, right.getAlpha(), right.getX() + right.getL() * (cos(radians(right.getOrient())) + cos(radians(right.getOrient() - right.getAlpha()))), right.getY() + right.getL() * (sin(radians(right.getOrient())) + sin(radians(right.getOrient() - right.getAlpha()))), right.getL(), right.getBeta(), right.getOrient() + right.getAlpha(), left.getCol()[0], left.getCol()[1], left.getCol()[2], col[0], col[1], col[2], right.getCol()[0], right.getCol()[1], right.getCol()[2]);
+  LRPair phi3() {
+    return new LRPair(showL, showR, right.getAlpha(), right.getX() + right.getL() * (cos(radians(right.getOrient())) + cos(radians(right.getOrient() - right.getAlpha()))), right.getY() + right.getL() * (sin(radians(right.getOrient())) + sin(radians(right.getOrient() - right.getAlpha()))), right.getL(), right.getBeta(), right.getOrient() + right.getAlpha(), left.getCol()[0], left.getCol()[1], left.getCol()[2], col[0], col[1], col[2], right.getCol()[0], right.getCol()[1], right.getCol()[2]);
   }
   
   /*
   Action: Copies the L-R pair and applys the phi_4 transformation to it
   */
-  lRPair phi4() {
-    return new lRPair(showL, showR, right.getAlpha(), right.getX() + right.getL() * (1 + 2 * cos(radians(right.getAlpha()))) * cos(radians(right.getOrient())), right.getY() + right.getL() * (1 + 2 * cos(radians(right.getAlpha()))) * sin(radians(right.getOrient())), right.getL(), right.getBeta(), right.getOrient(), left.getCol()[0], left.getCol()[1], left.getCol()[2], col[0], col[1], col[2], right.getCol()[0], right.getCol()[1], right.getCol()[2]);
+  LRPair phi4() {
+    return new LRPair(showL, showR, right.getAlpha(), right.getX() + right.getL() * (1 + 2 * cos(radians(right.getAlpha()))) * cos(radians(right.getOrient())), right.getY() + right.getL() * (1 + 2 * cos(radians(right.getAlpha()))) * sin(radians(right.getOrient())), right.getL(), right.getBeta(), right.getOrient(), left.getCol()[0], left.getCol()[1], left.getCol()[2], col[0], col[1], col[2], right.getCol()[0], right.getCol()[1], right.getCol()[2]);
   }
   
   /*
@@ -300,11 +300,11 @@ class lRPair {
     return col;
   }
   
-  rightRegion getRight() {
+  RightRegion getRight() {
     return right;
   }
   
-  leftRegion getLeft() {
+  LeftRegion getLeft() {
     return left;
   }
 }

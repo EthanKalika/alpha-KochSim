@@ -32,6 +32,19 @@ class LeftRotationAction extends Action{
   
   /*
   Inputs:
+    fancy - A boolean representing wheather to display the framework in fancy or normal mode during the action
+    center - A base 4 intereger representing the vertex that is to serve as the center of the rotation
+    amount - The number of degrees by which to rotate in the clockwise direction
+    lrn - The framework on which the rotation is to be performed
+    speed - The number of degrees by which the subframework is rotated per frame
+  Action: Creates an instance of a rotation of the left subframework. Rotation by negative angles is permitted but it must be accompanied by a negative speed.
+  */
+  LeftRotationAction(boolean fancy, String center, float amount, LRN lrn, float speed) {
+    this(fancy, angleIDWrapper(center), amount, lrn, speed);
+  }
+  
+  /*
+  Inputs:
     center - An intereger representing the vertex that is to serve as the center of the rotation
     amount - The number of degrees by which to rotate in the clockwise direction
     lrn - The framework on which the rotation is to be performed
@@ -40,6 +53,18 @@ class LeftRotationAction extends Action{
   */
   LeftRotationAction(int center, float amount, LRN lrn, float speed) {
     this(true, center, amount, lrn, speed);
+  }
+  
+  /*
+  Inputs:
+    center - A base 4 intereger representing the vertex that is to serve as the center of the rotation
+    amount - The number of degrees by which to rotate in the clockwise direction
+    lrn - The framework on which the rotation is to be performed
+    speed - The number of degrees by which the subframework is rotated per frame
+  Action: Creates an instance of a rotation of the left subframework. Rotation by negative angles is permitted but it must be accompanied by a negative speed. By default isFancy is set to true.
+  */
+  LeftRotationAction(String center, float amount, LRN lrn, float speed) {
+    this(true, angleIDWrapper(center), amount, lrn, speed);
   }
   
   /*

@@ -12,21 +12,21 @@ int currentActionIndex;  // This is used to keep track of the which action is cu
 
 // ONLY MODIFY THE CODE IN THESE CURLY BRACES.
 void simulate() {
+  // You may have noticed that using integer representations of the vertices is very tedious, especially for higher orders of the curve where there are thousands of vertices. We introduce angle
+  // identifiers to fix this issue. In reality all an anlge identifier allows us to do is to represent an anlge in using an integer in base 4 representation instead of base 10. This works so well because
+  // finding the base 4 representation is made very simple by the symmetry of the curve. Each order of the curve has 4 similar sub-arcs, so to identify the base 4 representation of a vertex in the curve,
+  // count the sub-arc that it is in starting from the left and indexing at 0, and do this repeatedly until you identify the order 0 curve that the vertex is on.
   KochCurve curve1 = new KochCurve(1400, 50, 600, 60, 4, t);
-  LRN lrn1 = new LRN(curve1, t, 10);
-  lrn1.displayFancyLRN();
+  curve1.displayArc();
+  curve1.rotateRightSubArc(110, 12);
+  //curve1.displayArc();
   
-  // Now lets create and queue some actions. Actions will be animated and performed in real time. Actions must be queued after they are created.
-  // A RightRotationAction rotates the right subframework of the LRN and the analogous is true of the LeftRotationAction.
-  //RightRotationAction action1 = new RightRotationAction(false, 100, 30, lrn1, 0.3);
-  RightRotationAction action1 = new RightRotationAction(true, 50, 20, lrn1, 0.1);
-  queueAction(action1);
-  RightRotationAction action2 = new RightRotationAction(100, -20, lrn1, -0.2);
-  queueAction(action2);
-  LeftRotationAction action3 = new LeftRotationAction(150, 30, lrn1, 0.3);
-  queueAction(action3);
-  LeftRotationAction action4 = new LeftRotationAction(200, -30, lrn1, -0.4);
-  queueAction(action4);
+  // Now the same anlge is rotated using its anlge identifier. The base 4 representation of 110 is 1232. Displaying the new curve verifies that the exact same angle was changed as before. Note that now
+  // the angle must be entered as a string and not an integer.
+  curve1.rotateRightSubArc("1232", 12);
+  //curve1.displayArc();
+  
+  // Any function where vertices are entered as number also allow them to be entered as angle identifiers (a string version of their base 4 representation).
 }
 
 /* Example Simulations:
@@ -367,6 +367,23 @@ void simulate() {
   queueAction(action3);
   LeftRotationAction action4 = new LeftRotationAction(200, -30, lrn1, -0.4);
   queueAction(action4);
+  
+15. Using angle identifiers
+  // You may have noticed that using integer representations of the vertices is very tedious, especially for higher orders of the curve where there are thousands of vertices. We introduce angle
+  // identifiers to fix this issue. In reality all an anlge identifier allows us to do is to represent an anlge in using an integer in base 4 representation instead of base 10. This works so well because
+  // finding the base 4 representation is made very simple by the symmetry of the curve. Each order of the curve has 4 similar sub-arcs, so to identify the base 4 representation of a vertex in the curve,
+  // count the sub-arc that it is in starting from the left and indexing at 0, and do this repeatedly until you identify the order 0 curve that the vertex is on.
+  KochCurve curve1 = new KochCurve(1400, 50, 600, 60, 4, t);
+  curve1.displayArc();
+  curve1.rotateRightSubArc(110, 12);
+  curve1.displayArc();
+  
+  // Now the same anlge is rotated using its anlge identifier. The base 4 representation of 110 is 1232. Displaying the new curve verifies that the exact same angle was changed as before. Note that now
+  // the angle must be entered as a string and not an integer.
+  curve1.rotateRightSubArc("1232", 12);
+  curve1.displayArc();
+  
+  // Any function where vertices are entered as number also allow them to be entered as angle identifiers (a string version of their base 4 representation).
 */
 
 void setup(){
@@ -393,23 +410,3 @@ Action: Adds the given action to the queue of actions
 void queueAction(Action action) {
   actionQueue.add(action);
 }
-
-/*
-void keyPressed() {
-  if (keyCode == LEFT) {
-    rotationSpeed = -0.1;
-  }
-  else if (keyCode == RIGHT) {
-    rotationSpeed = 0.5;
-  }
-  else if (keyCode == ' ') {
-    rotationSpeed = 0;
-  }
-}
-
-void keyReleased() {
-  if (keyCode == LEFT || keyCode == RIGHT || keyCode == ' ') {
-    rotationSpeed = 0.1;
-  }
-}
-*/

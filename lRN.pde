@@ -186,7 +186,7 @@ class LRN {
   
   /*
   Inputs:
-    endVert - The vertex of the associated alpha-Koch curve about which the sub-configuration to the left of the vertex should be rotated
+    endVert - The numerical representation of the vertex of the associated alpha-Koch curve about which the sub-configuration to the left of the vertex should be rotated
     deg - The amount of degrees by which to rotate
   Action: Rotates all parts of the configuration to the left of the given vertex deg degrees clockwise about the given vertex.
   */
@@ -200,7 +200,17 @@ class LRN {
   
   /*
   Inputs:
-    startVert - The vertex of the associated alpha-Koch curve about which the sub-configuration to the right of the vertex should be rotated
+    endVert - The base 4 representation of the vertex of the associated alpha-Koch curve about which the sub-configuration to the left of the vertex should be rotated
+    deg - The amount of degrees by which to rotate
+  Action: Rotates all parts of the configuration to the left of the given vertex deg degrees clockwise about the given vertex.
+  */
+  void rotateLeftSubFrame(String endVert, float deg) {
+    rotateLeftSubFrame(angleIDWrapper(endVert), deg);
+  }
+  
+  /*
+  Inputs:
+    startVert - The numerical representation of the vertex of the associated alpha-Koch curve about which the sub-configuration to the right of the vertex should be rotated
     deg - The amount of degrees by which to rotate
   Action: Rotates all parts of the configuration to the right of the given vertex deg degrees clockwise about the given vertex.
   */
@@ -210,6 +220,16 @@ class LRN {
     for (int i = startVert; i < regions.size(); i++) {
       regions.get(i).rotatePair(rotationCenter.x, rotationCenter.y, deg);
     }
+  }
+  
+  /*
+  Inputs:
+    startVert - The base 4 representation of the vertex of the associated alpha-Koch curve about which the sub-configuration to the right of the vertex should be rotated
+    deg - The amount of degrees by which to rotate
+  Action: Rotates all parts of the configuration to the right of the given vertex deg degrees clockwise about the given vertex.
+  */
+  void rotateRightSubFrame(String startVert, float deg) {
+    rotateRightSubFrame(angleIDWrapper(startVert), deg);
   }
   
   /*

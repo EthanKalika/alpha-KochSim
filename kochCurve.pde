@@ -99,7 +99,7 @@ class KochCurve {
   
   /*
   Inputs:
-    end - The point about which the rotation is happening
+    end - The numerical representation of the point about which the rotation is happening
     deg - The number of degrees of rotation
   Action: Rotates all the points to the left of the point indicated by the end are rotated deg degrees clockwise.
   */
@@ -109,12 +109,32 @@ class KochCurve {
   
   /*
   Inputs:
-    start - The point about which the rotation is happening
+    end - The base 4 represnetaion of the point about which the rotation is happening
+    deg - The number of degrees of rotation
+  Action: Rotates all the points to the left of the point indicated by the end are rotated deg degrees clockwise.
+  */
+  void rotateLeftSubArc(String end, float deg) {
+    rotateLeftSubArc(angleIDWrapper(end), deg);
+  }
+  
+  /*
+  Inputs:
+    start - The numerical representation of the point about which the rotation is happening
     deg - The number of degrees of rotation
   Action: Rotates all the points to the right of the point indicated by the start are rotated deg degrees clockwise.
   */
   void rotateRightSubArc(int start, float deg) {
     alphaKoch.rotateRightSubArc(start, deg);
+  }
+  
+  /*
+  Inputs:
+    start - The base 4 representation of the point about which the rotation is happening
+    deg - The number of degrees of rotation
+  Action: Rotates all the points to the right of the point indicated by the start are rotated deg degrees clockwise.
+  */
+  void rotateRightSubArc(String start, float deg) {
+    alphaKoch.rotateRightSubArc(angleIDWrapper(start), deg);
   }
   
   float getWidthOfCurve() {

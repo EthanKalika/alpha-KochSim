@@ -12,21 +12,16 @@ int currentActionIndex;  // This is used to keep track of the which action is cu
 
 // ONLY MODIFY THE CODE IN THESE CURLY BRACES.
 void simulate() {
-  // You may have noticed that using integer representations of the vertices is very tedious, especially for higher orders of the curve where there are thousands of vertices. We introduce angle
-  // identifiers to fix this issue. In reality all an anlge identifier allows us to do is to represent an anlge in using an integer in base 4 representation instead of base 10. This works so well because
-  // finding the base 4 representation is made very simple by the symmetry of the curve. Each order of the curve has 4 similar sub-arcs, so to identify the base 4 representation of a vertex in the curve,
-  // count the sub-arc that it is in starting from the left and indexing at 0, and do this repeatedly until you identify the order 0 curve that the vertex is on.
   KochCurve curve1 = new KochCurve(1400, 50, 600, 60, 4, t);
-  curve1.displayArc();
-  curve1.rotateRightSubArc(110, 12);
-  //curve1.displayArc();
+  LRN lrn1 = new LRN(curve1, t, 1);
+  //lrn1.setShowL(false);
+  lrn1.setShowR(false);
+  lrn1.displayFancyLRN();
   
-  // Now the same anlge is rotated using its anlge identifier. The base 4 representation of 110 is 1232. Displaying the new curve verifies that the exact same angle was changed as before. Note that now
-  // the angle must be entered as a string and not an integer.
-  curve1.rotateRightSubArc("1232", 12);
-  //curve1.displayArc();
-  
-  // Any function where vertices are entered as number also allow them to be entered as angle identifiers (a string version of their base 4 representation).
+  // Creates an instance of the IOAEABasic algorithm and adds it to the queue of actions. To learn more about the arguments refer to the documentation in the IOAEABasic file.
+  IOAEABasic action1 = new IOAEABasic(true, true, "0332", "3002", 55, lrn1, 0.2);
+  //IOAEABasic action1 = new IOAEABasic("0332", "3002", 55, lrn1, 0.1);
+  queueAction(action1);
 }
 
 /* Example Simulations:
@@ -384,6 +379,18 @@ void simulate() {
   curve1.displayArc();
   
   // Any function where vertices are entered as number also allow them to be entered as angle identifiers (a string version of their base 4 representation).
+  
+16. The IOAEABasic algorithm
+  KochCurve curve1 = new KochCurve(1400, 50, 600, 60, 4, t);
+  LRN lrn1 = new LRN(curve1, t, 1);
+  //lrn1.setShowL(false);
+  lrn1.setShowR(false);
+  lrn1.displayFancyLRN();
+  
+  // Creates an instance of the IOAEABasic algorithm and adds it to the queue of actions. To learn more about the arguments refer to the documentation in the IOAEABasic file.
+  IOAEABasic action1 = new IOAEABasic(true, true, "0332", "3002", 55, lrn1, 0.2);
+  //IOAEABasic action1 = new IOAEABasic("0332", "3002", 55, lrn1, 0.1);
+  queueAction(action1);
 */
 
 void setup(){

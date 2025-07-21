@@ -232,6 +232,10 @@ class LRN {
     rotateRightSubFrame(angleIDWrapper(startVert), deg);
   }
   
+  KochCurve getKochCurve() {
+    return alphaKoch;
+  }
+  
   /*
   Inputs:
     givenL - The value to which the showL value should be set set

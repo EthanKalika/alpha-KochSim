@@ -12,19 +12,14 @@ int currentActionIndex;  // This is used to keep track of the which action is cu
 
 // ONLY MODIFY THE CODE IN THESE CURLY BRACES.
 void simulate() {
-  KochCurve curve1 = new KochCurve(1400, 50, 600, 60, 4, t);
+  KochCurve curve1 = new KochCurve(1400, 50, 600, 65, 2, t);
   LRN lrn1 = new LRN(curve1, t, 1);
   //lrn1.setShowL(false);
-  lrn1.setShowR(false);
+  //lrn1.setShowR(false);
   lrn1.displayFancyLRN();
-  
-  // Creates an instance of the IOAEABasic algorithm and adds it to the queue of actions. To learn more about the arguments refer to the documentation in the IOAEABasic file.
-  IOAEABasic action1 = new IOAEABasic(true, true, "0332", "3002", 55, lrn1, 0.2);
-  //IOAEABasic action1 = new IOAEABasic("0332", "3002", 55, lrn1, 0.1);
-  queueAction(action1);
 }
 
-/* Example Simulations:
+/* Example Simulations (these can be copy and pasted into the curly braces to test what each one does):
 1. Displaying a Koch Curve and overlaying several frameworks:
   // Creates and displayes one instance of the alpha-koch curve. The first argument is the width of the curve. The second and third arguments are the x and y-coordinates of the start point of the curve.
   // The fourth argument is the alpha parameter of the curve and the fifth argument is the degree of the curve. The last argument, t, is just there to assist in the process of drawing the curve.
@@ -380,17 +375,107 @@ void simulate() {
   
   // Any function where vertices are entered as number also allow them to be entered as angle identifiers (a string version of their base 4 representation).
   
-16. The IOAEABasic algorithm
+16. The IOAEABasic action
   KochCurve curve1 = new KochCurve(1400, 50, 600, 60, 4, t);
   LRN lrn1 = new LRN(curve1, t, 1);
   //lrn1.setShowL(false);
   lrn1.setShowR(false);
   lrn1.displayFancyLRN();
   
-  // Creates an instance of the IOAEABasic algorithm and adds it to the queue of actions. To learn more about the arguments refer to the documentation in the IOAEABasic file.
+  // Creates an instance of the IOAEABasic algorithm and adds it to the queue of actions. To learn more about the arguments refer to the documentation in the IOAEABasic file. The commented line is an
+  // alternative way to declare action1.
   IOAEABasic action1 = new IOAEABasic(true, true, "0332", "3002", 55, lrn1, 0.2);
   //IOAEABasic action1 = new IOAEABasic("0332", "3002", 55, lrn1, 0.1);
+  //queueAction(action1);
+  
+  // For the algorithm to conserve the position of the endpoints, the angles must open in the same direction, that is, the angle bisectors must be parallel. This is why actions 1 and 2 maintain the
+  // position of the end point and action 3 does not.
+  IOAEABasic action2 = new IOAEABasic("1032", "1332", 50, lrn1, 0.1);
+  //queueAction(action2);
+  
+  // If we take angles facing in a different direction like so, the position of the enpoint is not preserved. Notice how the point is not on the tip of the framework at the end of the motion, this means
+  // The endpoint of the framework moved.
+  IOAEABasic action3 = new IOAEABasic("0332", "1032", 45, lrn1, 0.3);
+  //queueAction(action3);
+  
+  // Sometimes the measure of a certain anlge can not be decreased by the given amount because no other angle can be enlarged to offset this change. If such an angle is given, the IOAEABasic algorithm
+  // will throw an exception saying "The selected angle caused invalid arguments to the arccos function."
+  KochCurve curve2 = new KochCurve(1400, 50, 600, 30, 4, t);
+  LRN lrn2 = new LRN(curve2, t, 1);
+  lrn2.setShowL(false);
+  lrn2.setShowR(false);
+  lrn2.displayFancyLRN();
+  IOAEABasic action4 = new IOAEABasic(true, true, "0332", "3002", 29, lrn2, 0.2); // In this example, 29 is too large because angle "0332" can't be opened enough to offset such a decrease in angle "3002".
+  queueAction(action4);
+  
+  // The constructors that take integer arguments work in the same way:
+  //IOAEABasic action1 = new IOAEABasic(true, true, 62, 194, 55, lrn1, 0.2);
+  //queueAction(action1)
+  //IOAEABasic action2 = new IOAEABasic(78, 126, 50, lrn1, 0.1);
+  //queueAction(action2);
+  //IOAEABasic action3 = new IOAEABasic(62, 78, 45, lrn1, 0.3);
+  //queueAction(action3);
+  
+  //lrn2.displayFancyLRN();
+  //IOAEABasic action4 = new IOAEABasic(true, true, 62, 194, 29, lrn2, 0.2);
+  //queueAction(action4);
+  
+17. The IOAEAExtend action
+  KochCurve curve1 = new KochCurve(1400, 50, 600, 60, 4, t);
+  LRN lrn1 = new LRN(curve1, t, 1);
+  lrn1.setShowL(false);
+  lrn1.setShowR(false);
+  lrn1.displayFancyLRN();
+  
+  // Creates an instance of the IOAEAExtend algorithm and adds it to the queue of actions. To learn more about the arguments refer to the documentation in the IOAEAExtend file. The commented line is an
+  // alternative way to declare action1.
+  //IOAEAExtend action1 = new IOAEAExtend(true, true, "0200", 3, "2000", 4, 20, lrn1, 0.1);
+  IOAEAExtend action1 = new IOAEAExtend("0200", 3, "2000", 4, 20, lrn1, 0.1);
   queueAction(action1);
+  
+  // For the algorithm to conserve the position of the endpoints, the angles must open in the same direction, that is, the angle bisectors must be parallel. This is why actions 1 and 2 maintain the
+  // position of the end point and action 3 does not.
+  IOAEAExtend action2 = new IOAEAExtend("2020", 2, "2200", 3, 18, lrn1, 0.1);
+  //queueAction(action2);
+  
+  // If we take angles facing in a different direction like so, the position of the enpoint is not preserved. Notice how the point is not on the tip of the framework at the end of the motion, this means
+  // The endpoint of the framework moved.
+  IOAEAExtend action3 = new IOAEAExtend("2020", 2, "2000", 4, 7, lrn1, 0.2);
+  //queueAction(action3);
+  
+  // Sometimes the measure of a certain anlge can not be decreased by the given amount because no other angle can be enlarged to offset this change. This can be caused if too large an angle is given as
+  // input or if there is too large a difference between the given orders. If such an angle is given, the IOAEABasic algorithm will throw an exception saying "The selected angle or vertex order caused
+  // invalid arguments to the arccos function."
+  KochCurve curve2 = new KochCurve(1400, 50, 600, 50, 4, t);
+  LRN lrn2 = new LRN(curve2, t, 1);
+  lrn2.setShowL(false);
+  lrn2.setShowR(false);
+  lrn2.displayFancyLRN();
+  IOAEAExtend action4 = new IOAEAExtend("0320", 2, "2000", 3, 15, lrn2, 0.1);
+  //queueAction(action4);
+  IOAEAExtend action5 = new IOAEAExtend("0320", 2, "2000", 4, 15, lrn2, 0.1);  // This action is similar to action4 but the difference in the orders is too larg so this throws an excpetion.
+  //queueAction(action5);
+  IOAEAExtend action6 = new IOAEAExtend("0320", 2, "2000", 3, 20, lrn2, 0.1);  // This action is similar to action4 but the angle is too large so this throws an exception.
+  //queueAction(action6);
+  
+  // The constructors with integer inputs work in the same way:
+  //IOAEAExtend action1 = new IOAEAExtend(true, true, 32, 3, 128, 4, 20, lrn1, 0.1);
+  //IOAEAExtend action1 = new IOAEAExtend("0200", 3, "2000", 4, 20, lrn1, 0.1);
+  //queueAction(action1);
+  
+  //IOAEAExtend action2 = new IOAEAExtend(136, 2, 160, 3, 18, lrn1, 0.1);
+  //queueAction(action2);
+  
+  //IOAEAExtend action3 = new IOAEAExtend(136, 2, 128, 4, 7, lrn1, 0.2);
+  //queueAction(action3);
+  
+  //lrn2.displayFancyLRN();
+  //IOAEAExtend action4 = new IOAEAExtend(56, 2, 128, 3, 15, lrn2, 0.1);
+  //queueAction(action4);
+  //IOAEAExtend action5 = new IOAEAExtend(56, 2, 128, 4, 15, lrn2, 0.1);
+  //queueAction(action5);
+  //IOAEAExtend action6 = new IOAEAExtend(56, 2, 128, 3, 20, lrn2, 0.1);
+  //queueAction(action6);
 */
 
 void setup(){
@@ -404,6 +489,7 @@ void draw() {
   if (currentActionIndex < actionQueue.size()) {
     Action current = actionQueue.get(currentActionIndex);
     if (!current.perform()) {
+      println("Action " + (currentActionIndex + 1));
       currentActionIndex++;
     }
   }
